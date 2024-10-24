@@ -9,7 +9,7 @@ from pathlib import Path
 def get_repo_path(path_str) -> Path:
     return Path(path_str).expanduser()
 
-def collect_files_by_extension(repo_path):
+def collect_files_by_extension(repo_path) -> defaultdict[str, list]:
     files = defaultdict(list)
     files['Without_extension'] = []
 
@@ -24,7 +24,7 @@ def collect_files_by_extension(repo_path):
     
     return files
 
-def main():
+def main() -> None:
     parser = ArgumentParser(description='Collect files by extension from a repository.')
 
     parser.add_argument('--dir', '-d', required=True, help='Directory of the repository to scan.')
@@ -33,9 +33,7 @@ def main():
     parser.add_argument('--indent', '-i', type=int, default=None, help='Indentation level for JSON output (default: no indent).')
 
     args = parser.parse_args()
-
     repo_path = get_repo_path(args.dir)
-
     files = collect_files_by_extension(repo_path)
 
     if args.indent is not None:
